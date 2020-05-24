@@ -10,3 +10,7 @@
 
 class Student:
     pass
+
+
+class Admin:
+    pass
