@@ -6,7 +6,7 @@
 # товаров проданных всеми магазинами.
 
 
-class Shop:
+class Shop(Counter):
 
     description = "The class for shops"
 
@@ -14,3 +14,6 @@ class Shop:
         self._name_of_shop = name_of_shop
         self._quantity_sold = quantity_sold
 
+
+Shop('qw', 2)
+Shop('qe', 3)
