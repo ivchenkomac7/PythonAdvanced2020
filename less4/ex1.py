@@ -15,27 +15,16 @@ import datetime
 
 class AbstractPerson(abc.ABC):
 
-    @abc.abstractmethod
-    def person_info(self):
-        pass
-
-    @abc.abstractmethod
-    def person_age(self):
-        pass
-
-
-class Abiturient(AbstractPerson):
-
     def __init__(self, surname, birthday, faculty):
         self.surname = surname
         self.birthday = birthday
         self.faculty = faculty
 
-    @property
+    @abc.abstractmethod
     def person_info(self):
-        return self.surname, self.birthday, self.faculty
+        pass
 
-    @property
+    @abc.abstractmethod
     def person_age(self):
         birthday = datetime.datetime.strptime(self.birthday, '%Y, %m, %d')
         now_date = datetime.date.today()
@@ -47,12 +36,36 @@ class Abiturient(AbstractPerson):
         return age
 
 
-# class Student(AbstractPerson, Abiturient):
-#     pass
+class Abiturient(AbstractPerson):
+
+    @property
+    def person_info(self):
+        return self.surname, self.birthday, self.faculty
+    
+    def person_age(self):
+        super().person_age()
 
 
-# y = Student('AAA', '1986, 7, 31', 'asd')
+class Student(AbstractPerson):
+
+    def __init__(self, surname, birthday, faculty, course):
+        AbstractPerson.__init__(self, surname, birthday, faculty)
+        self.course = course
+
+    @property
+    def person_info(self):
+        return Abiturient.person_info, self.course
+
+    def person_age(self):
+        super().person_age()
+
+
+y = Student('AAA', '1987, 7, 31', 'asd', 2)
+
 
 x = Abiturient('AAA', '1986, 7, 31', 'asd')
+
 print(x.person_info)
-print(x.person_age)
+print(x.person_age())
+print(y.person_info)
+print(y.person_age())
