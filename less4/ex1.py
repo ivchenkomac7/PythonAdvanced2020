@@ -22,7 +22,7 @@ class AbstractPerson(abc.ABC):
 
     @abc.abstractmethod
     def person_info(self):
-        pass
+        return self.surname, self.birthday, self.faculty
 
     @abc.abstractmethod
     def person_age(self):
@@ -40,10 +40,10 @@ class Abiturient(AbstractPerson):
 
     @property
     def person_info(self):
-        return self.surname, self.birthday, self.faculty
+        return super().person_info()
     
     def person_age(self):
-        super().person_age()
+        return super().person_age()
 
 
 class Student(AbstractPerson):
@@ -54,10 +54,10 @@ class Student(AbstractPerson):
 
     @property
     def person_info(self):
-        return Abiturient.person_info, self.course
+        return super().person_info(), self.course
 
     def person_age(self):
-        super().person_age()
+        return super().person_age()
 
 
 y = Student('AAA', '1987, 7, 31', 'asd', 2)
