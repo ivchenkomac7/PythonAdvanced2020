@@ -15,6 +15,7 @@ import datetime
 
 class AbstractPerson(abc.ABC):
 
+    @abc.abstractmethod
     def __init__(self, surname, birthday, faculty):
         self.surname = surname
         self.birthday = birthday
@@ -38,6 +39,9 @@ class AbstractPerson(abc.ABC):
 
 class Abiturient(AbstractPerson):
 
+    def __init__(self, surname, birthday, faculty):
+        super().__init__(surname, birthday, faculty)
+
     @property
     def person_info(self):
         return super().person_info()
@@ -49,7 +53,7 @@ class Abiturient(AbstractPerson):
 class Student(AbstractPerson):
 
     def __init__(self, surname, birthday, faculty, course):
-        AbstractPerson.__init__(self, surname, birthday, faculty)
+        super().__init__(surname, birthday, faculty)
         self.course = course
 
     @property
@@ -60,12 +64,31 @@ class Student(AbstractPerson):
         return super().person_age()
 
 
-y = Student('AAA', '1987, 7, 31', 'asd', 2)
+class Teacher(AbstractPerson):
+
+    def __init__(self, surname, birthday, faculty, position, experience):
+        super().__init__(surname, birthday, faculty)
+        self.position = position
+        self.experience = experience
+
+    @property
+    def person_info(self):
+        return super().person_info(), self.position, self.experience
+
+    def person_age(self):
+        return super().person_age()
 
 
-x = Abiturient('AAA', '1986, 7, 31', 'asd')
+x = Abiturient('AAA', '1986, 7, 31', 'it')
+
+y = Student('AAA', '1987, 7, 31', 'communication', 2)
+
+z = Teacher('BBB', '1980, 4, 25', 'it', 'Teacher', 10)
+
 
 print(x.person_info)
 print(x.person_age())
 print(y.person_info)
 print(y.person_age())
+print(z.person_info)
+print(z.person_age())
