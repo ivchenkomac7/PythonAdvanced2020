@@ -23,11 +23,11 @@ class AbstractPerson(abc.ABC):
 
     @abc.abstractmethod
     def person_info(self):
-        return self.surname, self.birthday, self.faculty
+        return f'Surname: {self.surname}, BD: {self.birthday}, Faculty: {self.faculty}'
 
     @abc.abstractmethod
     def person_age(self):
-        birthday = datetime.datetime.strptime(self.birthday, '%Y, %m, %d')
+        birthday = datetime.datetime.strptime(self.birthday, '%Y/%m/%d')
         now_date = datetime.date.today()
         age = now_date.year - birthday.year
         if now_date.month < birthday.month:
@@ -45,7 +45,8 @@ class Abiturient(AbstractPerson):
     @property
     def person_info(self):
         return super().person_info()
-    
+
+    @property
     def person_age(self):
         return super().person_age()
 
@@ -58,8 +59,9 @@ class Student(AbstractPerson):
 
     @property
     def person_info(self):
-        return super().person_info(), self.course
+        return f'{super().person_info()}, Course: {self.course}'
 
+    @property
     def person_age(self):
         return super().person_age()
 
@@ -73,22 +75,31 @@ class Teacher(AbstractPerson):
 
     @property
     def person_info(self):
-        return super().person_info(), self.position, self.experience
+        return f'{super().person_info()}, Position: {self.position}, Experience: {self.experience}'
 
+    @property
     def person_age(self):
         return super().person_age()
 
 
-x = Abiturient('AAA', '1986, 7, 31', 'it')
+ab = Abiturient('Mask', '1986/7/31', 'IT')
 
-y = Student('AAA', '1987, 7, 31', 'communication', 2)
+st = Student('Zuckerberg', '1987/10/3', 'Electronics', 2)
 
-z = Teacher('BBB', '1980, 4, 25', 'it', 'Teacher', 10)
+tch = Teacher('Gates', '1980/4/25', 'IT', 'Teacher', 10)
 
+persons_list = [ab, st, tch]
 
-print(x.person_info)
-print(x.person_age())
-print(y.person_info)
-print(y.person_age())
-print(z.person_info)
-print(z.person_age())
+for i in persons_list:
+    print(i.person_info)
+
+for i in persons_list:
+    if int(i.person_age) > 32:
+        print(f'{i.surname} over 35 year old')
+
+# print(ab.surname)
+# print(ab.person_age())
+# print(st.person_info)
+# print(st.person_age())
+# print(tch.person_info)
+# print(tch.person_age())
