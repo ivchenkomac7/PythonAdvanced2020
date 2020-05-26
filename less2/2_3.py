@@ -15,16 +15,16 @@ class Dot:
         self.z = z
 
     def __add__(self, other):
-        return Dot(self.x + other.ab, self.y + other.st, self.z + other.tch)
+        return Dot(self.x + other.x, self.y + other.y, self.z + other.z)
 
     def __sub__(self, other):
-        return Dot(self.x - other.ab, self.y - other.st, self.z - other.tch)
+        return Dot(self.x - other.x, self.y - other.y, self.z - other.z)
 
     def __truediv__(self, other):
-        return Dot(self.x / other.ab, self.y / other.st, self.z / other.tch)
+        return Dot(self.x / other.x, self.y / other.y, self.z / other.z)
 
     def __mul__(self, other):
-        return Dot(self.x * other.ab, self.y * other.st, self.z * other.tch)
+        return Dot(self.x * other.x, self.y * other.y, self.z * other.y)
 
     def __neg__(self):
         return Dot(-self.x, -self.y, -self.z)
